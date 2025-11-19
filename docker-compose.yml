@@ -1,0 +1,38 @@
+version: '3'
+services:
+  namenode:
+    image: yassern1/hadoop-spark-jupyter:1.0.3
+    container_name: namenode
+    ports:
+      - "9870:9870"
+      - "9000:9000"
+    environment:
+      - CLUSTER_NAME=hadoop-cluster
+    volumes:
+      - namenode-data:/hadoop/dfs/name
+    networks:
+      - hadoop
+
+  datanode1:
+    image: yassern1/hadoop-spark-jupyter:1.0.3
+    container_name: datanode1
+    volumes:
+      - datanode1-data:/hadoop/dfs/data
+    networks:
+      - hadoop
+
+  datanode2:
+    image: yassern1/hadoop-spark-jupyter:1.0.3
+    container_name: datanode2
+    volumes:
+      - datanode2-data:/hadoop/dfs/data
+    networks:
+      - hadoop
+
+volumes:
+  namenode-data:
+  datanode1-data:
+  datanode2-data:
+
+networks:
+  hadoop:
